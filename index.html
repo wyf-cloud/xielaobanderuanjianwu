@@ -11,12 +11,12 @@
         @keyframes gradientShift { 0%, 100% { background: linear-gradient(45deg, #0a0a0f, #1a1a2e, #16213e); } 50% { background: linear-gradient(45deg, #16213e, #0a0a0f, #1a1a2e); } }
         nav { position: fixed; top: 0; width: 100%; padding: 20px 50px; background: rgba(10, 10, 15, 0.9); backdrop-filter: blur(10px); z-index: 1000; transition: all 0.3s ease; }
         .notification-bar { position: fixed; top: 80px; width: 100%; height: 50px; background: linear-gradient(45deg, rgba(79, 172, 254, 0.2), rgba(0, 242, 254, 0.2)); border-top: 1px solid rgba(79, 172, 254, 0.3); border-bottom: 1px solid rgba(79, 172, 254, 0.3); overflow: hidden; z-index: 999; display: flex; align-items: center; }
-        .notification-content-wrapper { display: inline-block; animation: scrollLeft 20s linear infinite; }
+        .notification-content-wrapper { display: inline-block; animation: scrollLeft 20s linear infinite; white-space: nowrap; }
         .notification-content-wrapper.scroll-right { animation-name: scrollRight; }
         @keyframes scrollLeft { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
         @keyframes scrollRight { 0% { transform: translateX(-100%); } 100% { transform: translateX(100vw); } }
         .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
-        .logo { font-size: 24px; font-weight: bold; cursor: pointer; display: flex; align-items: center; z-index: 1001; }
+        .logo { font-size: 24px; font-weight: bold; cursor: pointer; display: flex; align-items: center; }
         #logoIcon { height: 30px; margin-right: 10px; }
         #logoText { background: linear-gradient(45deg, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-links { display: flex; list-style: none; gap: 30px; }
@@ -83,61 +83,6 @@
         .contact-content { text-align: center; padding: 20px; color: #fff; line-height: 1.6; }
         .contact-content img { display: block; margin: 20px auto 0 auto; max-width: 100%; height: auto; max-height: 300px; border-radius: 10px; border: 1px solid rgba(79, 172, 254, 0.3); }
         .contact-text { white-space: pre-wrap; text-align: center; }
-
-        /* ========= START: 新增的移动端适配样式 ========= */
-        .nav-toggle { display: none; cursor: pointer; z-index: 1001; }
-        .nav-toggle span { display: block; width: 25px; height: 3px; background-color: white; margin: 5px 0; transition: all 0.3s ease-in-out; }
-
-        /* 当菜单打开时，汉堡包按钮变成 "X" */
-        .nav-open .nav-toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-        .nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
-        .nav-open .nav-toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-        
-        @media (max-width: 768px) {
-            nav { padding: 20px; }
-            .notification-bar { top: 70px; }
-            .main-content { padding-top: 130px; }
-            .hero-section { padding: 80px 20px; }
-            .software-grid { padding: 30px 20px; }
-            .admin-panel { padding: 30px 20px; }
-
-            .hero-title { font-size: 2.5rem; }
-            .hero-subtitle { font-size: 1.2rem; }
-
-            .admin-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-
-            .nav-links {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background: rgba(10, 10, 15, 0.98);
-                backdrop-filter: blur(15px);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 40px;
-                transform: translateX(100%);
-                transition: transform 0.3s ease-in-out;
-            }
-            
-            .nav-open .nav-links { transform: translateX(0); }
-            
-            .nav-links a { font-size: 1.5rem; }
-            
-            .admin-btn {
-                display: none; /* 在移动端菜单中可以单独创建一个链接来替代 */
-            }
-
-            .nav-toggle {
-                display: block; /* 只在移动端显示汉堡包按钮 */
-            }
-            
-            /* 确保模态框在手机上也有好的边距 */
-            .modal-content { padding: 25px; }
-        }
-        /* ========= END: 新增的移动端适配样式 ========= */
     </style>
 </head>
 <body>
@@ -149,27 +94,13 @@
                 <img id="logoIcon" src="" alt="Logo Icon" style="display: none;">
                 <span id="logoText"></span>
             </div>
-            
-            <!-- START: 移动端导航链接和管理后台按钮被移到这里 -->
             <ul class="nav-links">
-                <li><a href="#" onclick="showHome(); closeMobileMenu();">首页</a></li>
-                <li><a href="#" onclick="scrollToSoftware(); closeMobileMenu();">软件展示</a></li>
-                <li><a href="#" onclick="showAbout(); closeMobileMenu();">蟹老板的传说</a></li>
-                <li><a href="#" onclick="showContact(); closeMobileMenu();">联系方式</a></li>
-                <!-- 在移动菜单中也提供后台入口 -->
-                <li><a href="#" onclick="showAdmin(); closeMobileMenu();" class="admin-btn-mobile" style="color: #4facfe;">管理后台</a></li>
+                <li><a href="#" onclick="showHome()">首页</a></li>
+                <li><a href="#" onclick="scrollToSoftware()">软件展示</a></li>
+                <li><a href="#" onclick="showAbout()">蟹老板的传说</a></li>
+                <li><a href="#" onclick="showContact()">联系方式</a></li>
             </ul>
-            <!-- END -->
-
             <button class="admin-btn" onclick="showAdmin()">管理后台</button>
-
-            <!-- START: 新增的汉堡包菜单按钮 -->
-            <div class="nav-toggle" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <!-- END -->
         </div>
     </nav>
 
@@ -226,85 +157,46 @@
     <div id="aboutUsModal" class="modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">蟹老板的传说 - 蟹老板外传</h3><span class="close" onclick="closeAboutUsModal()">&times;</span></div><div class="about-us-content"><h3>第一章 壳里的第一页</h3><p>在招投标的江湖里，一直流传着一个名字——蟹老板。传说他并非凡人，而是一只从远古合同之海里爬上岸的寄居蟹，壳里藏着的是一部用贝壳镌刻的《标书真经》。</p><p>蟹老板初到人间时，不过是一只指甲盖大的小蟹，被海浪拍在滨海市招标办的台阶上。那天，一份价值十亿的跨海大桥 PPP 项目资格预审文件被风刮落，盖住了他的壳。蟹老板顺势钻进文件袋，在“投标人须知”里睡了一夜。第二天，人们只看见文件袋自己在地上横着走，留下一道盐霜般的字迹——“评分条款 3.2.5，缺‘项目经理无在建承诺’，扣 5 分。”</p><p>从此，招标办的人开始传说：有一只蟹，能在一夜间把废标变成满分。</p><h3>第二章 蟹行水印</h3><p>蟹老板修炼成精后，开了一家只有夜色里才能找到的打印店，招牌是“水印事务所”。</p><p>店里没有电脑，只有一只古旧的铜盆。客户把 U 盘插进去，水面立刻浮出投标文件的三维幻影：暗标章在左侧第 17 页“咔哒”一声自动归位，技术暗标里的 BIM 模型像珊瑚一样长出关键节点。最神的是报价部分——铜盆里会升起一串气泡，每个气泡里都是竞争对手历史下浮率，蟹老板用钳子“啪”地戳破一个，下浮点就自动减 0.5%，不多不少正好踩在基准价上。</p><p>据说，中过标的客户第二天醒来，只记得梦里一只青灰色的蟹，举着激光笔在页边距 2.5 厘米处画了一道红线。那红线后来谁也擦不掉，复印、扫描、OCR 识别都带着淡淡蟹影，成了蟹老板的防伪水印。</p><h3>第三章 废标劫</h3><p>2018 年，滨海市轨交 8 号线招标，蟹老板帮一家小企业做标书。开标前夜，竞争对手请来“流标鬼”，在服务器里植入 0.01% 的乱码。</p><p>蟹老板不慌，把整份投标文件拆成 17 万片碎壳，每片壳背刻一行小楷，再让壳片顺着网线游回招标中心主机，像寄居蟹排队钻进新壳。凌晨 3:33，主机风扇突然停转，屏幕闪出一只蟹的剪影——0.01% 的乱码被夹成了“技术可行”四个字。</p><p>开标结果公布，小企业以 0.13 分的优势险胜。评委组组长后来回忆：“唱标时，我闻到一股淡淡海腥味，PPT 目录页右下角有一只蟹的水印，心里就踏实了。”</p><h3>第四章 壳归大海</h3><p>蟹老板最后一次出现，是在 2025 年 8 月 7 日——也就是今天。</p><p>滨海市发布全球首个“深海浮式风电 EPC”资格预审，公告里暗藏一条：投标文件须用“可降解海藻纤维纸”打印，且不得出现任何与海洋有关的暗纹。所有投标人都犯了难：不用海洋元素，那还是滨海项目吗？</p><p>当晚，招标中心门口出现一只褪色的青壳，壳里夹着一张对折的纸，纸上没有字，只有一道波浪形的压痕。第二天，所有投标人的技术暗标里，都自动多了一页“海洋环境零影响承诺”，字体像盐粒一样闪着微光。评标专家翻到这页时，耳边仿佛响起潮汐声，集体给出满分。</p><p>而蟹老板，却再没人见过。有人说他在退潮时爬回了合同之海；也有人说，他化成了招标文件里 2.5 厘米的页边距，从此活在每一份认真编制的标书里。</p><h3>尾声</h3><p>后来，标书制作行业流传一条不成文的规矩：打印前，先在封面空白处敲三下，喊一声“蟹老板，扣零分”。如果打印机突然“吱”地空转一声，就表示老人家已经收到，这份标书必定暗标不泄密、明标不废标、报价不踩雷。</p><p>于是，每当深夜的打印店灯火通明，总能听见细碎的脚步声——像是一只蟹，在纸堆里悄悄行走。</p></div></div></div>
     <div id="contactModal" class="modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">联系方式</h3><span class="close" onclick="closeContactModal()">&times;</span></div><div class="contact-content"><p id="contactTextDisplay" class="contact-text"></p><img id="contactQRCodeDisplay" src="" alt="二维码"></div></div></div>
 
-    <script type="module">
-        // 1. FIREBASE SETUP
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-        // Import Firestore functions we will need
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+    <script>
+        // 1. FIREBASE 已被移除 - 现在是纯静态网站
 
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyD1nCW3MY-mw6Y8VKhfYbRdOCu_XPajB1c",
-            authDomain: "xielaobanruanjianwu.firebaseapp.com",
-            projectId: "xielaobanruanjianwu",
-            storageBucket: "xielaobanruanjianwu.firebasestorage.app",
-            messagingSenderId: "330553587076",
-            appId: "1:330553587076:web:1b159639c02b67d585d9d1",
-            measurementId: "G-SKSTXQHNXJ"
-        };
-
-        // Initialize Firebase and get a reference to the Firestore service
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-
-        // 2. WEBSITE'S CORE LOGIC AND DATA
+        // 2. 网站的核心数据 - 所有软件信息已在此硬编码
         const IMAGE_BASE_PATH = 'images/';
-        const defaultSoftwareList = [
-            { id: 1, name: "国网调价工具", version: "v2.1.0", description: "国网EPC快速调价(五种调价方式)，单价分析表快速导出，支持数据备份与恢复。", imagePath: "国网调价工具.png", downloadUrl: "#" },
-            { id: 2, name: "批量转换双层PDF", version: "v1.8.3", description: "双层pdf批量转换工具，直接从word开始转换，省去中间步骤操作方便。", imagePath: "批量转换双层PDF.png", downloadUrl: "#" },
+
+        // 这是网站现在唯一的数据源
+        const softwareListData = [
+            { id: 1, name: "国网调价工具", version: "v2.1.0", description: "国网EPC快速调价(五种调价方式)，单价分析表快速导出，支持数据备份与恢复。", imagePath: "国网调价工具.png", downloadUrl: "https://www.bilibili.com/video/BV1p5EvzvEin/" },
+            { id: 2, name: "批量转换双层PDF", version: "v1.8.3", description: "双层pdf批量转换工具，直接从word开始转换，省去中间步骤操作方便。", imagePath: "批量转换双层PDF.png", downloadUrl: "https://www.bilibili.com/video/BV16GgZejEcD/" },
+            { id: 3, name: "国网算分工具", version: "v1.0", description: "国网算分工具 Ver 1.0.0.1 2.区间复合平均价法(次低价平均) 1.区间平均价浮动法 3.最低评标价法 4.区间复合平均价法 5.低价高分反比例(带系数) 6.区间平均下浮双边曲线算法 7.随机区间双边曲线算法 8.区间平均下浮双边曲线算法(含估算基准价) 9.算术平均值下浮法(基准价去向)", imagePath: "国网算分工具.png", downloadUrl: "https://www.bilibili.com/video/BV1yTGtzvEBD/" },
+            { id: 4, name: "PDF文件转图片插入到WORD", version: "v1.0", description: "可以批量把PDF文件转换成图片直接插入到WORD文档中", imagePath: "PDF文件转图片插入到WORD.png", downloadUrl: "#" },
+            { id: 5, name: "Word文档批量页码编排器", version: "v1.0", description: "针对南方电网投标开发可批量把多个文件按顺序更新页码。", imagePath: "Word文档批量页码编排器.png", downloadUrl: "https://www.bilibili.com/video/BV1Pj411H7vm/" },
+            { id: 6, name: "国网技术规范书批量响应工具", version: "v1.0", description: "针对国网开发可以批量响应国网技术规范书,包括批量响应表格内容", imagePath: "国网技术规范书批量响应工具.png", downloadUrl: "https://www.bilibili.com/video/BV1CDtizwEaA/" },
+            { id: 7, name: "批量盖章软件", version: "v1.0", description: "可批量盖公章可批量盖骑缝章可智能定位落款位置盖章可指定位盖章", imagePath: "批量盖章软件.png", downloadUrl: "https://www.bilibili.com/video/BV1raG4zbEpe/" },
+            { id: 8, name: "图片批量调整工具", version: "v1.0", description: "可批量对文档中的图片进行尺寸变更操作", imagePath: "图片批量调整工具.png", downloadUrl: "#" },
+            { id: 9, name: "南方电网投标辅助工具", version: "v1.0", description: "批量生成超级链接", imagePath: "南方电网投标辅助工具.png", downloadUrl: "https://www.bilibili.com/video/BV1yTjuz4E5W/" },
+            { id: 10, name: "南方电网投标辅助工具", version: "v1.0", description: "批量双向超级链接", imagePath: "南方电网投标辅助工具_2.png", downloadUrl: "https://www.bilibili.com/video/BV1BW77zrEWD/" }
         ];
-        const defaultNotificationSettings = { text: "🎉 欢迎使用蟹老板软件屋！", direction: "left", speed: "normal" };
-        const defaultLogoSettings = { iconPath: 'logo.png', text: '蟹老板软件屋' };
-        const defaultContactSettings = { text: "蟹老板\n扫描二维码加微信好友", qrCodePath: "qrcode.png" };
-        
-        // --- NEW DATA FUNCTIONS USING FIRESTORE ---
-        const saveData = async (docId, data) => {
-            try {
-                // Save the data object to a document in the 'settings' collection
-                await setDoc(doc(db, 'settings', docId), { content: data });
-            } catch (e) {
-                console.error("Error saving document: ", e);
-                alert('数据保存到云端失败！请检查网络连接或浏览器控制台报错信息。');
-            }
-        };
 
-        const loadData = async (docId, defaultValue) => {
-            try {
-                const docRef = doc(db, 'settings', docId);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    // If the document exists, return its 'content' field
-                    return docSnap.data().content;
-                } else {
-                    // If not, return the default value so the site works on first load
-                    return defaultValue;
-                }
-            } catch (e) {
-                 console.error("Error loading document from Firestore: ", e);
-                 return defaultValue; // On error, also return default to prevent site from breaking
-            }
-        };
-
-        // --- GLOBAL VARIABLES & FUNCTIONS ---
-        // We need to attach variables and functions to the 'window' object
-        // so that inline 'onclick' handlers in the HTML can access them from within the module script.
+        // 默认设置保持不变
+        const notificationSettingsData = { text: "🎉 欢迎来到蟹老板软件屋！想加入国网南网技术交流群的朋友，可以加我微信，我拉你入群 微信1群已满 微信2群（未满492人）", direction: "left", speed: "normal" };
+        const logoSettingsData = { iconPath: 'LOGO.jpg', text: '蟹老板软件屋' };
+        const contactSettingsData = { text: "蟹老板 QQ:625383053", qrCodePath: "二维码.jpg" };
         
-        let softwareList, notificationSettings, logoSettings, contactSettings;
+        // --- 全局变量和函数 ---
+        // 注意：由于没有后端，这些列表的更改只存在于内存中，刷新页面后会重置！
+        let softwareList = [...softwareListData]; // 创建一个副本以进行临时修改
+        let notificationSettings = {...notificationSettingsData};
+        let logoSettings = {...logoSettingsData};
+        let contactSettings = {...contactSettingsData};
+
         let isLoggedIn = false, currentEditId = null;
         const adminCredentials = { username: "admin", password: "123456" };
-
-        // ========= START: 新增的移动端菜单函数 =========
-        window.toggleMobileMenu = function() {
-            document.body.classList.toggle('nav-open');
-        };
-
-        window.closeMobileMenu = function() {
-            document.body.classList.remove('nav-open');
-        };
-        // ========= END: 新增的移动端菜单函数 =========
-
-        window.saveSoftware = function() {
+        
+        // --- 重要提示 ---
+        // 以下所有 "save" 功能现在都只会临时修改页面内容。
+        // 刷新后所有更改都会丢失！
+        // 如需永久更改，请直接修改上面的 `softwareListData` 数组。
+        function saveSoftware() {
             const name = document.getElementById('softwareName').value.trim();
             const imagePath = document.getElementById('imagePath').value.trim();
             if (!name || !imagePath) { alert('软件名称和截图文件名是必填项！'); return; }
@@ -315,43 +207,39 @@
             } else {
                 softwareList.push({ id: Date.now(), ...softwareData });
             }
-            saveData('techsoft-software', softwareList);
             renderAll();
             closeModal();
-            alert('软件信息保存成功！');
+            alert('软件信息已临时保存！刷新页面后将恢复原状。');
         };
 
-        window.saveNotificationSettings = function() {
+        function saveNotificationSettings() {
             notificationSettings.text = document.getElementById('notificationText').value;
             notificationSettings.direction = document.getElementById('scrollDirection').value;
             notificationSettings.speed = document.getElementById('scrollSpeed').value;
-            saveData('techsoft-notifications', notificationSettings);
             updateNotificationBar();
             closeNotificationModal();
-            alert('通知设置已保存！');
+            alert('通知设置已临时保存！刷新页面后将恢复原状。');
         };
 
-        window.saveLogoSettings = function() {
+        function saveLogoSettings() {
             logoSettings.text = document.getElementById('logoTextInput').value.trim();
             logoSettings.iconPath = document.getElementById('logoPathInput').value.trim();
             if (!logoSettings.text) { alert('Logo文字不能为空！'); return; }
-            saveData('techsoft-logo', logoSettings);
             updateLogo();
             closeLogoSettingsModal();
-            alert('Logo设置已保存！');
+            alert('Logo设置已临时保存！刷新页面后将恢复原状。');
         };
         
-        window.saveContactSettings = function() {
+        function saveContactSettings() {
             contactSettings.text = document.getElementById('contactText').value;
             contactSettings.qrCodePath = document.getElementById('contactQRCodePath').value.trim();
-            saveData('techsoft-contact', contactSettings);
             updateContactModal();
             closeContactSettingsModal();
-            alert('联系方式设置已保存！');
+            alert('联系方式设置已临时保存！刷新页面后将恢复原状。');
         };
 
-        window.performLogin = () => { if (document.getElementById('username').value === adminCredentials.username && document.getElementById('password').value === adminCredentials.password) { isLoggedIn = true; closeLoginModal(); showAdminPanel(); alert('登录成功！'); } else { alert('用户名或密码错误！'); } };
-        window.logout = () => { isLoggedIn = false; showHome(); alert('已成功退出登录'); };
+        function performLogin() { if (document.getElementById('username').value === adminCredentials.username && document.getElementById('password').value === adminCredentials.password) { isLoggedIn = true; closeLoginModal(); showAdminPanel(); alert('登录成功！'); } else { alert('用户名或密码错误！'); } };
+        function logout() { isLoggedIn = false; showHome(); alert('已成功退出登录'); };
         
         const renderAll = () => { renderSoftwareGrid(); renderAdminTable(); };
         
@@ -410,30 +298,30 @@
 
         const showModal = (modalId, setupFn) => { if (setupFn) setupFn(); document.getElementById(modalId).style.display = 'block'; };
 
-        window.showAdmin = () => { if (!isLoggedIn) showLoginModal(); else showAdminPanel(); };
-        window.showAddModal = () => { if (!isLoggedIn) { showLoginModal(); return; } showModal('softwareModal', () => { currentEditId = null; document.getElementById('modalTitle').textContent = '添加新软件'; ['softwareName', 'softwareVersion', 'softwareDescription', 'imagePath', 'downloadUrl'].forEach(id => document.getElementById(id).value = ''); updateImagePathPreview('', 'imagePathPreview'); }); };
-        window.editSoftware = (id) => { if (!isLoggedIn) { showLoginModal(); return; } showModal('softwareModal', () => { const software = softwareList.find(s => s.id === id); currentEditId = id; document.getElementById('modalTitle').textContent = '编辑软件'; document.getElementById('softwareName').value = software.name; document.getElementById('softwareVersion').value = software.version; document.getElementById('softwareDescription').value = software.description; document.getElementById('imagePath').value = software.imagePath; document.getElementById('downloadUrl').value = software.downloadUrl; updateImagePathPreview(software.imagePath, 'imagePathPreview'); }); };
-        window.showLogoSettingsModal = () => { if (!isLoggedIn) { showLoginModal(); return; } showModal('logoSettingsModal', () => { document.getElementById('logoTextInput').value = logoSettings.text; document.getElementById('logoPathInput').value = logoSettings.iconPath; updateImagePathPreview(logoSettings.iconPath, 'logoPathPreview'); }); };
-        window.showNotificationModal = () => { if (!isLoggedIn) { showLoginModal(); return; } showModal('notificationModal', () => { document.getElementById('notificationText').value = notificationSettings.text; document.getElementById('scrollDirection').value = notificationSettings.direction; document.getElementById('scrollSpeed').value = notificationSettings.speed; }); };
-        window.showContactSettingsModal = () => { if (!isLoggedIn) { showLoginModal(); return; } showModal('contactSettingsModal', () => { document.getElementById('contactText').value = contactSettings.text; document.getElementById('contactQRCodePath').value = contactSettings.qrCodePath; updateImagePathPreview(contactSettings.qrCodePath, 'contactQRCodePreview'); }); };
-        window.showAbout = () => showModal('aboutUsModal');
-        window.showContact = () => { updateContactModal(); showModal('contactModal'); };
-        window.deleteSoftware = id => { const softwareName = softwareList.find(s => s.id === id)?.name || ''; if (confirm(`确定要删除软件 "${softwareName}" 吗？`)) { softwareList = softwareList.filter(s => s.id !== id); saveData('techsoft-software', softwareList); renderAll(); alert('软件已删除。'); } };
-        window.moveSoftwareUp = (id) => { const index = softwareList.findIndex(s => s.id === id); if (index > 0) { [softwareList[index - 1], softwareList[index]] = [softwareList[index], softwareList[index - 1]]; saveData('techsoft-software', softwareList); renderAll(); } };
-        window.moveSoftwareDown = (id) => { const index = softwareList.findIndex(s => s.id === id); if (index < softwareList.length - 1) { [softwareList[index], softwareList[index + 1]] = [softwareList[index + 1], softwareList[index]]; saveData('techsoft-software', softwareList); renderAll(); } };
+        function showAdmin() { if (!isLoggedIn) showLoginModal(); else showAdminPanel(); };
+        function showAddModal() { if (!isLoggedIn) { showLoginModal(); return; } showModal('softwareModal', () => { currentEditId = null; document.getElementById('modalTitle').textContent = '添加新软件'; ['softwareName', 'softwareVersion', 'softwareDescription', 'imagePath', 'downloadUrl'].forEach(id => document.getElementById(id).value = ''); updateImagePathPreview('', 'imagePathPreview'); }); };
+        function editSoftware(id) { if (!isLoggedIn) { showLoginModal(); return; } showModal('softwareModal', () => { const software = softwareList.find(s => s.id === id); currentEditId = id; document.getElementById('modalTitle').textContent = '编辑软件'; document.getElementById('softwareName').value = software.name; document.getElementById('softwareVersion').value = software.version; document.getElementById('softwareDescription').value = software.description; document.getElementById('imagePath').value = software.imagePath; document.getElementById('downloadUrl').value = software.downloadUrl; updateImagePathPreview(software.imagePath, 'imagePathPreview'); }); };
+        function showLogoSettingsModal() { if (!isLoggedIn) { showLoginModal(); return; } showModal('logoSettingsModal', () => { document.getElementById('logoTextInput').value = logoSettings.text; document.getElementById('logoPathInput').value = logoSettings.iconPath; updateImagePathPreview(logoSettings.iconPath, 'logoPathPreview'); }); };
+        function showNotificationModal() { if (!isLoggedIn) { showLoginModal(); return; } showModal('notificationModal', () => { document.getElementById('notificationText').value = notificationSettings.text; document.getElementById('scrollDirection').value = notificationSettings.direction; document.getElementById('scrollSpeed').value = notificationSettings.speed; }); };
+        function showContactSettingsModal() { if (!isLoggedIn) { showLoginModal(); return; } showModal('contactSettingsModal', () => { document.getElementById('contactText').value = contactSettings.text; document.getElementById('contactQRCodePath').value = contactSettings.qrCodePath; updateImagePathPreview(contactSettings.qrCodePath, 'contactQRCodePreview'); }); };
+        function showAbout() { showModal('aboutUsModal'); };
+        function showContact() { updateContactModal(); showModal('contactModal'); };
+        function deleteSoftware(id) { const softwareName = softwareList.find(s => s.id === id)?.name || ''; if (confirm(`确定要删除软件 "${softwareName}" 吗？(刷新后恢复)`)) { softwareList = softwareList.filter(s => s.id !== id); renderAll(); alert('软件已临时删除。'); } };
+        function moveSoftwareUp(id) { const index = softwareList.findIndex(s => s.id === id); if (index > 0) { [softwareList[index - 1], softwareList[index]] = [softwareList[index], softwareList[index - 1]]; renderAll(); } };
+        function moveSoftwareDown(id) { const index = softwareList.findIndex(s => s.id === id); if (index < softwareList.length - 1) { [softwareList[index], softwareList[index + 1]] = [softwareList[index + 1], softwareList[index]]; renderAll(); } };
 
-        window.showHome = () => { document.getElementById('home-content').style.display = 'block'; document.getElementById('admin-content').style.display = 'none'; };
+        function showHome() { document.getElementById('home-content').style.display = 'block'; document.getElementById('admin-content').style.display = 'none'; };
         const showAdminPanel = () => { document.getElementById('home-content').style.display = 'none'; document.getElementById('admin-content').style.display = 'block'; };
         const showLoginModal = () => { document.getElementById('loginModal').style.display = 'block'; };
-        window.scrollToSoftware = () => document.getElementById('software-showcase').scrollIntoView({ behavior: 'smooth' });
+        function scrollToSoftware() { document.getElementById('software-showcase').scrollIntoView({ behavior: 'smooth' }); };
         
-        window.closeModal = () => document.getElementById('softwareModal').style.display = 'none';
-        window.closeLogoSettingsModal = () => document.getElementById('logoSettingsModal').style.display = 'none';
-        window.closeNotificationModal = () => document.getElementById('notificationModal').style.display = 'none';
-        window.closeContactSettingsModal = () => document.getElementById('contactSettingsModal').style.display = 'none';
-        window.closeLoginModal = () => document.getElementById('loginModal').style.display = 'none';
-        window.closeAboutUsModal = () => document.getElementById('aboutUsModal').style.display = 'none';
-        window.closeContactModal = () => document.getElementById('contactModal').style.display = 'none';
+        function closeModal() { document.getElementById('softwareModal').style.display = 'none'; };
+        function closeLogoSettingsModal() { document.getElementById('logoSettingsModal').style.display = 'none'; };
+        function closeNotificationModal() { document.getElementById('notificationModal').style.display = 'none'; };
+        function closeContactSettingsModal() { document.getElementById('contactSettingsModal').style.display = 'none'; };
+        function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; };
+        function closeAboutUsModal() { document.getElementById('aboutUsModal').style.display = 'none'; };
+        function closeContactModal() { document.getElementById('contactModal').style.display = 'none'; };
 
         const updateImagePathPreview = (path, previewId) => {
             const previewEl = document.getElementById(previewId);
@@ -441,21 +329,15 @@
             else { previewEl.style.display = 'none'; }
         };
         
-        // This is the main entry point, marked as async to use 'await' for data loading
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Load all data from Firestore when the page loads
-            softwareList = await loadData('techsoft-software', defaultSoftwareList);
-            notificationSettings = await loadData('techsoft-notifications', defaultNotificationSettings);
-            logoSettings = await loadData('techsoft-logo', defaultLogoSettings);
-            contactSettings = await loadData('techsoft-contact', defaultContactSettings);
-
-            // Once data is loaded, render the page
+        // 这是主入口点
+        document.addEventListener('DOMContentLoaded', () => {
+            // 直接从硬编码的常量加载数据
             renderAll();
             updateLogo();
             updateNotificationBar();
             updateContactModal();
 
-            // Set up event listeners for image previews in modals
+            // 为模态框中的图像预览设置事件侦听器
             document.getElementById('imagePath').addEventListener('input', e => updateImagePathPreview(e.target.value, 'imagePathPreview'));
             document.getElementById('logoPathInput').addEventListener('input', e => updateImagePathPreview(e.target.value, 'logoPathPreview'));
             document.getElementById('contactQRCodePath').addEventListener('input', e => updateImagePathPreview(e.target.value, 'contactQRCodePreview'));

@@ -16,7 +16,7 @@
         @keyframes scrollLeft { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
         @keyframes scrollRight { 0% { transform: translateX(-100%); } 100% { transform: translateX(100vw); } }
         .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
-        .logo { font-size: 24px; font-weight: bold; cursor: pointer; display: flex; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; cursor: pointer; display: flex; align-items: center; z-index: 1001; }
         #logoIcon { height: 30px; margin-right: 10px; }
         #logoText { background: linear-gradient(45deg, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-links { display: flex; list-style: none; gap: 30px; }
@@ -83,6 +83,61 @@
         .contact-content { text-align: center; padding: 20px; color: #fff; line-height: 1.6; }
         .contact-content img { display: block; margin: 20px auto 0 auto; max-width: 100%; height: auto; max-height: 300px; border-radius: 10px; border: 1px solid rgba(79, 172, 254, 0.3); }
         .contact-text { white-space: pre-wrap; text-align: center; }
+
+        /* ========= START: 新增的移动端适配样式 ========= */
+        .nav-toggle { display: none; cursor: pointer; z-index: 1001; }
+        .nav-toggle span { display: block; width: 25px; height: 3px; background-color: white; margin: 5px 0; transition: all 0.3s ease-in-out; }
+
+        /* 当菜单打开时，汉堡包按钮变成 "X" */
+        .nav-open .nav-toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+        .nav-open .nav-toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        
+        @media (max-width: 768px) {
+            nav { padding: 20px; }
+            .notification-bar { top: 70px; }
+            .main-content { padding-top: 130px; }
+            .hero-section { padding: 80px 20px; }
+            .software-grid { padding: 30px 20px; }
+            .admin-panel { padding: 30px 20px; }
+
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+
+            .admin-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10, 10, 15, 0.98);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            
+            .nav-open .nav-links { transform: translateX(0); }
+            
+            .nav-links a { font-size: 1.5rem; }
+            
+            .admin-btn {
+                display: none; /* 在移动端菜单中可以单独创建一个链接来替代 */
+            }
+
+            .nav-toggle {
+                display: block; /* 只在移动端显示汉堡包按钮 */
+            }
+            
+            /* 确保模态框在手机上也有好的边距 */
+            .modal-content { padding: 25px; }
+        }
+        /* ========= END: 新增的移动端适配样式 ========= */
     </style>
 </head>
 <body>
@@ -94,13 +149,27 @@
                 <img id="logoIcon" src="" alt="Logo Icon" style="display: none;">
                 <span id="logoText"></span>
             </div>
+            
+            <!-- START: 移动端导航链接和管理后台按钮被移到这里 -->
             <ul class="nav-links">
-                <li><a href="#" onclick="showHome()">首页</a></li>
-                <li><a href="#" onclick="scrollToSoftware()">软件展示</a></li>
-                <li><a href="#" onclick="showAbout()">蟹老板的传说</a></li>
-                <li><a href="#" onclick="showContact()">联系方式</a></li>
+                <li><a href="#" onclick="showHome(); closeMobileMenu();">首页</a></li>
+                <li><a href="#" onclick="scrollToSoftware(); closeMobileMenu();">软件展示</a></li>
+                <li><a href="#" onclick="showAbout(); closeMobileMenu();">蟹老板的传说</a></li>
+                <li><a href="#" onclick="showContact(); closeMobileMenu();">联系方式</a></li>
+                <!-- 在移动菜单中也提供后台入口 -->
+                <li><a href="#" onclick="showAdmin(); closeMobileMenu();" class="admin-btn-mobile" style="color: #4facfe;">管理后台</a></li>
             </ul>
+            <!-- END -->
+
             <button class="admin-btn" onclick="showAdmin()">管理后台</button>
+
+            <!-- START: 新增的汉堡包菜单按钮 -->
+            <div class="nav-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <!-- END -->
         </div>
     </nav>
 
@@ -157,7 +226,6 @@
     <div id="aboutUsModal" class="modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">蟹老板的传说 - 蟹老板外传</h3><span class="close" onclick="closeAboutUsModal()">&times;</span></div><div class="about-us-content"><h3>第一章 壳里的第一页</h3><p>在招投标的江湖里，一直流传着一个名字——蟹老板。传说他并非凡人，而是一只从远古合同之海里爬上岸的寄居蟹，壳里藏着的是一部用贝壳镌刻的《标书真经》。</p><p>蟹老板初到人间时，不过是一只指甲盖大的小蟹，被海浪拍在滨海市招标办的台阶上。那天，一份价值十亿的跨海大桥 PPP 项目资格预审文件被风刮落，盖住了他的壳。蟹老板顺势钻进文件袋，在“投标人须知”里睡了一夜。第二天，人们只看见文件袋自己在地上横着走，留下一道盐霜般的字迹——“评分条款 3.2.5，缺‘项目经理无在建承诺’，扣 5 分。”</p><p>从此，招标办的人开始传说：有一只蟹，能在一夜间把废标变成满分。</p><h3>第二章 蟹行水印</h3><p>蟹老板修炼成精后，开了一家只有夜色里才能找到的打印店，招牌是“水印事务所”。</p><p>店里没有电脑，只有一只古旧的铜盆。客户把 U 盘插进去，水面立刻浮出投标文件的三维幻影：暗标章在左侧第 17 页“咔哒”一声自动归位，技术暗标里的 BIM 模型像珊瑚一样长出关键节点。最神的是报价部分——铜盆里会升起一串气泡，每个气泡里都是竞争对手历史下浮率，蟹老板用钳子“啪”地戳破一个，下浮点就自动减 0.5%，不多不少正好踩在基准价上。</p><p>据说，中过标的客户第二天醒来，只记得梦里一只青灰色的蟹，举着激光笔在页边距 2.5 厘米处画了一道红线。那红线后来谁也擦不掉，复印、扫描、OCR 识别都带着淡淡蟹影，成了蟹老板的防伪水印。</p><h3>第三章 废标劫</h3><p>2018 年，滨海市轨交 8 号线招标，蟹老板帮一家小企业做标书。开标前夜，竞争对手请来“流标鬼”，在服务器里植入 0.01% 的乱码。</p><p>蟹老板不慌，把整份投标文件拆成 17 万片碎壳，每片壳背刻一行小楷，再让壳片顺着网线游回招标中心主机，像寄居蟹排队钻进新壳。凌晨 3:33，主机风扇突然停转，屏幕闪出一只蟹的剪影——0.01% 的乱码被夹成了“技术可行”四个字。</p><p>开标结果公布，小企业以 0.13 分的优势险胜。评委组组长后来回忆：“唱标时，我闻到一股淡淡海腥味，PPT 目录页右下角有一只蟹的水印，心里就踏实了。”</p><h3>第四章 壳归大海</h3><p>蟹老板最后一次出现，是在 2025 年 8 月 7 日——也就是今天。</p><p>滨海市发布全球首个“深海浮式风电 EPC”资格预审，公告里暗藏一条：投标文件须用“可降解海藻纤维纸”打印，且不得出现任何与海洋有关的暗纹。所有投标人都犯了难：不用海洋元素，那还是滨海项目吗？</p><p>当晚，招标中心门口出现一只褪色的青壳，壳里夹着一张对折的纸，纸上没有字，只有一道波浪形的压痕。第二天，所有投标人的技术暗标里，都自动多了一页“海洋环境零影响承诺”，字体像盐粒一样闪着微光。评标专家翻到这页时，耳边仿佛响起潮汐声，集体给出满分。</p><p>而蟹老板，却再没人见过。有人说他在退潮时爬回了合同之海；也有人说，他化成了招标文件里 2.5 厘米的页边距，从此活在每一份认真编制的标书里。</p><h3>尾声</h3><p>后来，标书制作行业流传一条不成文的规矩：打印前，先在封面空白处敲三下，喊一声“蟹老板，扣零分”。如果打印机突然“吱”地空转一声，就表示老人家已经收到，这份标书必定暗标不泄密、明标不废标、报价不踩雷。</p><p>于是，每当深夜的打印店灯火通明，总能听见细碎的脚步声——像是一只蟹，在纸堆里悄悄行走。</p></div></div></div>
     <div id="contactModal" class="modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">联系方式</h3><span class="close" onclick="closeContactModal()">&times;</span></div><div class="contact-content"><p id="contactTextDisplay" class="contact-text"></p><img id="contactQRCodeDisplay" src="" alt="二维码"></div></div></div>
 
-    <!-- ======================= START OF NEW SCRIPT ======================= -->
     <script type="module">
         // 1. FIREBASE SETUP
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
@@ -225,6 +293,16 @@
         let softwareList, notificationSettings, logoSettings, contactSettings;
         let isLoggedIn = false, currentEditId = null;
         const adminCredentials = { username: "admin", password: "123456" };
+
+        // ========= START: 新增的移动端菜单函数 =========
+        window.toggleMobileMenu = function() {
+            document.body.classList.toggle('nav-open');
+        };
+
+        window.closeMobileMenu = function() {
+            document.body.classList.remove('nav-open');
+        };
+        // ========= END: 新增的移动端菜单函数 =========
 
         window.saveSoftware = function() {
             const name = document.getElementById('softwareName').value.trim();
@@ -385,6 +463,5 @@
         
         window.addEventListener('click', e => { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; });
     </script>
-    <!-- ======================= END OF NEW SCRIPT ======================= -->
 </body>
 </html>

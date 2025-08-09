@@ -205,6 +205,44 @@
             z-index: 9999; /* 高于页面元素，低于 loadingScreen(99999) */
             pointer-events: none;
         }
+
+        /* ====== 底部访客计数（新增） ====== */
+        .site-footer{
+            margin-top: 40px;
+            padding: 24px 16px 32px;
+            background: rgba(255,255,255,0.03);
+            border-top: 1px solid rgba(79,172,254,0.25);
+        }
+        .footer-inner{
+            max-width:1200px; margin:0 auto;
+            display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+            gap:12px;
+        }
+        .counter-badge{
+            display:inline-flex; align-items:center; gap:10px;
+            padding:10px 14px; border-radius:12px;
+            background: linear-gradient(45deg, rgba(79,172,254,.12), rgba(0,242,254,.12));
+            border:1px solid rgba(79,172,254,.35);
+            box-shadow: 0 10px 24px rgba(79,172,254,.08);
+        }
+        .counter-dot{
+            width:10px; height:10px; border-radius:50%;
+            background: radial-gradient(circle at 40% 40%, #00f2fe, #4facfe);
+            box-shadow: 0 0 10px rgba(0,242,254,.8);
+        }
+        .counter-text{
+            font-weight:600; color:#cfefff; letter-spacing:.5px;
+        }
+        .counter-number{
+            font-variant-numeric: tabular-nums;
+            font-weight:800; font-size:1.1rem; color:#00f2fe;
+            text-shadow: 0 0 8px rgba(0,242,254,.35);
+        }
+        .footer-tip{ opacity:.7; font-size:.95rem; }
+        /* 移动端对齐 */
+        @media (max-width:640px){
+            .footer-inner{ justify-content:center; text-align:center; }
+        }
         /* 移动端默认无鼠标，恢复系统指针逻辑在脚本中处理 */
     </style>
 </head>
@@ -437,7 +475,6 @@
             <div class="about-us-content">
                 <h3>第一章 壳里的第一页</h3><p>在招投标的江湖里，一直流传着一个名字——蟹老板。传说他并非凡人，而是一只从远古合同之海里爬上岸的寄居蟹，壳里藏着的是一部用贝壳镌刻的《标书真经》。</p><p>蟹老板初到人间时，不过是一只指甲盖大的小蟹，被海浪拍在滨海市招标办的台阶上。那天，一份价值十亿的跨海大桥 PPP 项目资格预审文件被风刮落，盖住了他的壳。蟹老板顺势钻进文件袋，在“投标人须知”里睡了一夜。第二天，人们只看见文件袋自己在地上横着走，留下一道盐霜般的字迹——“评分条款 3.2.5，缺‘项目经理无在建承诺’，扣 5 分。”</p><p>从此，招标办的人开始传说：有一只蟹，能在一夜间把废标变成满分。</p><h3>第二章 蟹行水印</h3><p>蟹老板修炼成精后，开了一家只有夜色里才能找到的打印店，招牌是“水印事务所”。</p><p>店里没有电脑，只有一只古旧的铜盆。客户把 U 盘插进去，水面立刻浮出投标文件的三维幻影：暗标章在左侧第 17 页“咔哒”一声自动归位，技术暗标里的 BIM 模型像珊瑚一样长出关键节点。最神的是报价部分——铜盆里会升起一串气泡，每个气泡里都是竞争对手历史下浮率，蟹老板用钳子“啪”地戳破一个，下浮点就自动减 0.5%，不多不少正好踩在基准价上。</p><p>据说，中过标的客户第二天醒来，只记得梦里一只青灰色的蟹，举着激光笔在页边距 2.5 厘米处画了一道红线。那红线后来谁也擦不掉，复印、扫描、OCR 识别都带着淡淡蟹影，成了蟹老板的防伪水印。</p><h3>第三章 废标劫</h3><p>2018 年，滨海市轨交 8 号线招标，蟹老板帮一家小企业做标书。开标前夜，竞争对手请来“流标鬼”，在服务器里植入 0.01% 的乱码。</p><p>蟹老板不慌，把整份投标文件拆成 17 万片碎壳，每片壳背刻一行小楷，再让壳片顺着网线游回招标中心主机，像寄居蟹排队钻进新壳。凌晨 3:33，主机风扇突然停转，屏幕闪出一只蟹的剪影——0.01% 的乱码被夹成了“技术可行”四个字。</p><p>开标结果公布，小企业以 0.13 分的优势险胜。评委组组长后来回忆：“唱标时，我闻到一股淡淡海腥味，PPT 目录页右下角有一只蟹的水印，心里就踏实了。”</p><h3>第四章 壳归大海</h3><p>蟹老板最后一次出现，是在 2025 年 8 月 7 日——也就是今天。</p><p>滨海市发布全球首个“深海浮式风电 EPC”资格预审，公告里暗藏一条：投标文件须用“可降解海藻纤维纸”打印，且不得出现任何与海洋有关的暗纹。所有投标人都犯了难：不用海洋元素，那还是滨海项目吗？</p><p>当晚，招标中心门口出现一只褪色的青壳，壳里夹着一张对折的纸，纸上没有字，只有一道波浪形的压痕。第二天，所有投标人的技术暗标里，都自动多了一页“海洋环境零影响承诺”，字体像盐粒一样闪着微光。评标专家翻到这页时，耳边仿佛响起潮汐声，集体给出满分。</p><p>而蟹老板，却再没人见过。有人说他在退潮时爬回了合同之海；也有人说，他化成了招标文件里 2.5 厘米的页边距，从此活在每一份认真编制的标书里。</p><h3>尾声</h3><p>后来，标书制作行业流传一条不成文的规矩：打印前，先在封面空白处敲三下，喊一声“蟹老板，扣零分”。如果打印机突然“吱”地空转一声，就表示老人家已经收到，这份标书必定暗标不泄密、明标不废标、报价不踩雷。</p><p>于是，每当深夜的打印店灯火通明，总能听见细碎的脚步声——像是一只蟹，在纸堆里悄悄行走。</p></div></div></div>
 
-
     <div id="contactModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -450,6 +487,18 @@
             </div>
         </div>
     </div>
+
+    <!-- ======= 新增：底部访客统计显示牌 ======= -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="counter-badge" aria-live="polite" aria-atomic="true">
+                <span class="counter-dot" aria-hidden="true"></span>
+                <span class="counter-text">访客总数</span>
+                <span class="counter-number" id="visitCount">—</span>
+            </div>
+            <div class="footer-tip">© <span id="yearNow"></span> 蟹老板软件屋 · 托管于 GitHub Pages</div>
+        </div>
+    </footer>
 
     <!-- 开场粒子 Loading 动画脚本（与主逻辑隔离） -->
     <script>
@@ -698,7 +747,7 @@
     ];
 
     const notificationSettingsData = {
-        text: "🎉 欢迎来到蟹老板软件屋！想加入国网南网技术交流群的朋友，可以加我微信，我拉你入群 微信1群已满 微信2群（未满492人） 微信3群（未满340人），如果有办公自动化需求软件定制，可以加我微信咨询",
+        text: "🎉 欢迎来到蟹老板软件屋！想加入国网南网技术交流群的朋友，可以加我微信，我拉你入群 微信1群已满 微信2群（未满492人） 微信3群（未满492人）",
         direction: "left",
         speed: "normal"
     };
@@ -942,7 +991,45 @@
     }
     document.addEventListener('DOMContentLoaded', init);
     </script>
+
+    <!-- ===== 新增：CountAPI 访客统计脚本 ===== -->
+    <script>
+    (function(){
+        // 当前年份显示
+        document.getElementById('yearNow').textContent = new Date().getFullYear();
+
+        // 使用 CountAPI（无后台，纯前端可用）
+        // 文档：https://countapi.xyz/
+        const NAMESPACE = 'wyf-cloud.github.io';
+        const KEY = 'xielaobanderuanjianwu';
+
+        // 如果首次使用，无需手动创建，直接 hit 会自动创建并 +1
+        const url = `https://api.countapi.xyz/hit/${encodeURIComponent(NAMESPACE)}/${encodeURIComponent(KEY)}?amount=1`;
+
+        // 超时控制，避免网络问题卡住
+        const controller = new AbortController();
+        const timer = setTimeout(()=>controller.abort(), 8000);
+
+        fetch(url, { signal: controller.signal })
+            .then(res => res.json())
+            .then(data => {
+                clearTimeout(timer);
+                // 返回示例：{ "namespace": "...", "key": "...", "value": 123, "update_lowerbound": 1, "ttl": -1 }
+                const val = (data && typeof data.value === 'number') ? data.value : null;
+                const el = document.getElementById('visitCount');
+                el.textContent = val !== null ? val.toLocaleString() : '—';
+                el.title = '由 CountAPI 提供计数服务';
+            })
+            .catch(err => {
+                clearTimeout(timer);
+                // 失败时显示占位，不影响页面其它功能
+                const el = document.getElementById('visitCount');
+                el.textContent = '—';
+                el.title = '计数服务暂时不可用';
+                // 可选：在控制台记录错误
+                console.warn('[CountAPI] 计数失败：', err);
+            });
+    })();
+    </script>
 </body>
 </html>
-
-
